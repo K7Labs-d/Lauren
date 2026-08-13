@@ -1,69 +1,127 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#140b2f" />
 <title>مهمة لورين السرية</title>
 <style>
-:root{--a:#8b5cf6;--b:#ec4899;--ink:#2e2440}
+:root{
+  --bg:#140b2f; --bg2:#31175a; --bg3:#8a4a91;
+  --cream:#fff6dc; --gold:#ffd67c; --pink:#f35fae; --purple:#8f5cff;
+  --text:#fffafc; --muted:#e8def2; --glass:rgba(33,20,63,.62);
+}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;
-font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);
-background:radial-gradient(circle at 20% 10%,#ffd8ef,transparent 30%),
-radial-gradient(circle at 90% 20%,#ddd3ff,transparent 28%),
-linear-gradient(145deg,#fff7fc,#f3efff)}
-.card{width:min(560px,100%);background:#ffffffec;border:1px solid #fff;border-radius:30px;
-padding:32px 22px;box-shadow:0 25px 70px #5b21b622;text-align:center}
-.cat{font-size:82px;margin-bottom:6px}
-h1{font-size:clamp(28px,7vw,40px);margin:0 0 8px}
-p{font-size:17px;line-height:1.7;color:#6d6380}
-.status{margin:20px 0;background:#f6f2ff;border-radius:18px;padding:16px;font-weight:800;min-height:62px;display:grid;place-items:center}
-button{width:100%;border:0;border-radius:18px;padding:16px 18px;margin-top:10px;font-size:18px;font-weight:900;cursor:pointer}
-.primary{color:#fff;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:0 10px 24px #8b5cf633}
-.secondary{background:#ede9fe;color:#4c1d95}
-.hidden{display:none}
-.small{font-size:13px;margin-top:14px;color:#887e99}
+html,body{margin:0;min-height:100%}
+body{
+  min-height:100svh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 50% -3%,rgba(255,224,145,.28),transparent 15rem),
+    radial-gradient(circle at 14% 33%,rgba(170,97,255,.23),transparent 21rem),
+    radial-gradient(circle at 88% 72%,rgba(243,95,174,.20),transparent 24rem),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 53%,var(--bg3) 100%);
+  display:grid;
+  place-items:center;
+  padding:max(18px,env(safe-area-inset-top)) 16px max(22px,env(safe-area-inset-bottom));
+}
+.scene{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+.stars,.stars:before,.stars:after{position:absolute;inset:0;content:"";background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:76px 76px;opacity:.44}
+.stars:before{background-size:123px 123px;background-position:31px 55px;opacity:.45}
+.stars:after{background-size:177px 177px;background-position:75px 22px;opacity:.5;animation:twinkle 4.5s ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.85;transform:translateY(-2px)}}
+.moon{position:absolute;top:clamp(24px,4vh,54px);left:50%;translate:-50% 0;width:clamp(86px,10vw,132px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffde8 0 19%,#ffe7a6 62%,#f2c55e 100%);box-shadow:0 0 42px rgba(255,217,126,.62),0 0 100px rgba(255,217,126,.25)}
+.cloud{position:absolute;width:240px;height:80px;border-radius:999px;background:rgba(255,255,255,.055);filter:blur(1px)}
+.cloud:before,.cloud:after{content:"";position:absolute;border-radius:50%;background:inherit}.cloud:before{width:90px;height:90px;left:42px;top:-28px}.cloud:after{width:120px;height:120px;right:22px;top:-50px}.c1{left:-90px;top:23%}.c2{right:-120px;top:64%;transform:scale(.8)}
+.paw{position:absolute;width:32px;height:28px;opacity:.12;transform:rotate(var(--r)) scale(var(--s))}
+.paw:before{content:"";position:absolute;width:17px;height:13px;border-radius:50%;background:#fff;left:8px;top:14px;box-shadow:-9px -11px 0 -4px #fff,1px -16px 0 -4px #fff,11px -12px 0 -4px #fff,17px -4px 0 -4px #fff}
+.p1{left:7%;top:18%;--r:-24deg;--s:1}.p2{right:8%;top:37%;--r:23deg;--s:1.18}.p3{left:12%;bottom:10%;--r:17deg;--s:.8}.p4{right:15%;bottom:19%;--r:-18deg;--s:.9}
+.wrap{width:min(720px,100%);position:relative;z-index:2;text-align:center;padding-top:clamp(90px,12vh,130px)}
+.kicker{font-size:12px;font-weight:850;letter-spacing:.08em;color:#f1d9ff;margin-bottom:10px;text-shadow:0 2px 18px rgba(0,0,0,.3)}
+.portal{
+  position:relative;
+  width:min(560px,100%);
+  margin:auto;
+  padding:34px 30px 26px;
+  border-radius:260px 260px 38px 38px;
+  background:linear-gradient(180deg,rgba(86,48,140,.64),rgba(22,13,52,.83));
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 0 70px rgba(154,91,255,.16),0 30px 80px rgba(3,0,18,.45);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  overflow:hidden;
+}
+.portal:before{content:"";position:absolute;inset:16px;border-radius:245px 245px 26px 26px;border:1px solid rgba(255,218,130,.33);box-shadow:inset 0 0 28px rgba(255,218,130,.06)}
+.portal:after{content:"";position:absolute;left:8%;right:8%;bottom:-72px;height:150px;border-radius:50%;background:radial-gradient(ellipse,rgba(243,95,174,.34),transparent 67%);filter:blur(15px)}
+.cat-orb{position:relative;z-index:1;width:108px;aspect-ratio:1;margin:8px auto 20px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#fffbe8,#ffdc89 58%,#efa251);box-shadow:0 0 0 8px rgba(255,214,124,.08),0 0 48px rgba(255,214,124,.32);transition:.35s ease}
+.cat{position:relative;width:62px;height:54px;background:#ef8750;border-radius:48% 48% 44% 44%}
+.cat:before,.cat:after{content:"";position:absolute;top:-12px;width:24px;height:25px;background:#ef8750;clip-path:polygon(50% 0,100% 100%,0 100%)}.cat:before{left:2px;transform:rotate(-8deg)}.cat:after{right:2px;transform:rotate(8deg)}
+.eye{position:absolute;top:21px;width:6px;height:8px;background:#291943;border-radius:50%}.eye.l{left:17px}.eye.r{right:17px}.nose{position:absolute;top:33px;left:50%;translate:-50% 0;width:7px;height:5px;border-radius:50%;background:#bc3e72}.smile{position:absolute;top:38px;left:50%;translate:-50% 0;width:18px;height:10px;border-bottom:3px solid #7d2e52;border-radius:0 0 50% 50%}
+h1{position:relative;z-index:1;margin:0 0 10px;font-size:clamp(30px,5vw,44px);line-height:1.18;text-wrap:balance;letter-spacing:-.02em}
+.lead{position:relative;z-index:1;max-width:450px;margin:0 auto 16px;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.75}
+.status{position:relative;z-index:1;min-height:64px;display:grid;place-items:center;margin:16px 0 12px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:15.5px;font-weight:850}
+.actions{position:relative;z-index:1;display:grid;gap:10px}
+button{width:100%;min-height:55px;border:0;border-radius:17px;padding:14px 18px;font:inherit;font-size:16.5px;font-weight:900;cursor:pointer;touch-action:manipulation;transition:transform .16s ease,filter .16s ease}
+button:active{transform:scale(.985)}button:disabled{opacity:.58;cursor:wait}
+.primary{color:#fff;background:linear-gradient(135deg,var(--purple),var(--pink));box-shadow:0 12px 28px rgba(190,64,180,.30)}
+.primary:hover{filter:brightness(1.06)}
+.secondary{color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.hidden{display:none!important}
+.note{position:relative;z-index:1;margin-top:12px;font-size:11.5px;color:#cfc3dd}.seal{display:inline-grid;place-items:center;width:21px;height:21px;margin-inline-start:6px;border-radius:50%;border:1px solid rgba(255,214,124,.36);background:rgba(255,214,124,.13);color:#ffe1a0;font-size:10px;font-weight:900}
+.portal.active{animation:pulse 1.15s ease both}.portal.active .cat-orb{transform:scale(1.06);box-shadow:0 0 0 11px rgba(255,214,124,.10),0 0 72px rgba(255,214,124,.48)}
+@keyframes pulse{50%{box-shadow:inset 0 0 95px rgba(166,94,255,.31),0 34px 105px rgba(3,0,18,.54)}}
+@media(max-width:640px){
+  body{padding:12px 10px 16px;align-items:center}
+  .wrap{padding-top:98px}
+  .moon{top:24px;width:82px}.cloud,.paw{display:none}.kicker{font-size:10.5px;margin-bottom:7px}
+  .portal{padding:26px 17px 20px;border-radius:175px 175px 30px 30px}.portal:before{inset:11px;border-radius:165px 165px 21px 21px}
+  .cat-orb{width:88px;margin:8px auto 16px}.cat{transform:scale(.76)}
+  h1{font-size:clamp(27px,8.5vw,36px);line-height:1.16}.lead{font-size:14.5px;line-height:1.65;margin-bottom:12px}
+  .status{min-height:58px;margin:13px 0 10px;font-size:14.5px;padding:12px}.note{font-size:10.5px}button{min-height:52px;font-size:16px}
+}
+@media(max-height:760px) and (min-width:641px){.wrap{padding-top:76px}.moon{top:16px;width:74px}.portal{padding-top:24px}.cat-orb{width:84px;margin:3px auto 12px}.cat{transform:scale(.76)}h1{font-size:34px}.lead{font-size:15px;margin-bottom:9px}.status{min-height:56px;margin-top:10px}button{min-height:50px}}
+@media(orientation:landscape) and (max-height:520px){body{place-items:start center;padding-top:10px}.wrap{padding-top:6px}.scene .moon,.kicker{display:none}.portal{width:min(620px,92vw);padding:16px 24px 14px;border-radius:34px}.portal:before{inset:9px;border-radius:26px}.cat-orb{width:62px;margin:0 auto 7px}.cat{transform:scale(.56)}h1{font-size:27px;margin-bottom:5px}.lead{font-size:13px;line-height:1.45;margin-bottom:6px}.status{min-height:44px;margin:7px 0;padding:8px;font-size:13px}.actions{gap:6px}button{min-height:43px;padding:9px;font-size:14px}.note{margin-top:6px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.stars:after{display:none}}
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="cat" id="cat">🐱</div>
-  <h1>رسالة سرية إلى لورين</h1>
-  <p>ارفعي الصوت شوي... ولا تقولين لأحد عن المهمة.</p>
-  <div class="status" id="status">جاهزة للمكالمة السرية؟</div>
-  <button class="primary" id="start">ابدئي</button>
-  <button class="secondary hidden" id="iam">أنا لورين</button>
-  <button class="secondary hidden" id="meow">مياااو</button>
-  <button class="secondary hidden" id="again">مرة ثانية</button>
-  <div class="small">الصوت هنا ملفات MP3 طبيعية، وليس صوت المتصفح.</div>
-</div>
+<div class="scene" aria-hidden="true"><div class="stars"></div><div class="moon"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="paw p1"></div><div class="paw p2"></div><div class="paw p3"></div><div class="paw p4"></div></div>
+<main class="wrap">
+  <div class="kicker">مهمة خاصة • لورين فقط</div>
+  <section class="portal" id="portal" aria-live="polite">
+    <div class="cat-orb" aria-hidden="true"><div class="cat"><i class="eye l"></i><i class="eye r"></i><i class="nose"></i><i class="smile"></i></div></div>
+    <h1 id="title">لورين... عندك رسالة سرية من مملكة القطط</h1>
+    <p class="lead" id="lead">ارفعي الصوت شوي. البوابة ما تفتح إلا للشخص الصح.</p>
+    <div class="status" id="status">جاهزة تفتحين البوابة؟</div>
+    <div class="actions">
+      <button class="primary" id="start">افتحي البوابة</button>
+      <button class="secondary hidden" id="iam">أنا لورين</button>
+      <button class="secondary hidden" id="meow">مياو... أنا من جماعة القطط</button>
+      <button class="secondary hidden" id="again">أعيدي المهمة</button>
+    </div>
+    <div class="note">رسالة صوتية خاصة <span class="seal">K7</span></div>
+  </section>
+</main>
 <script>
 const $=id=>document.getElementById(id);
-const clips={intro:"audio/01_intro.mp3",name:"audio/02_name.mp3",confirm:"audio/03_confirm.mp3",
-dad:"audio/04_dad.mp3",secret:"audio/05_secret.mp3",cats:"audio/06_cats.mp3",
-result:"audio/07_result.mp3",final:"audio/08_final.mp3"};
-let current=null;
-function play(src){return new Promise((res,rej)=>{if(current){current.pause();current=null}
-const a=new Audio(src);current=a;a.onended=()=>{current=null;res()};a.onerror=()=>{current=null;rej(new Error("audio"))};a.play().catch(rej)})}
+const clips={intro:"audio/01_intro.mp3",name:"audio/02_name.mp3",confirm:"audio/03_confirm.mp3",dad:"audio/04_dad.mp3",secret:"audio/05_secret.mp3",cats:"audio/06_cats.mp3",result:"audio/07_result.mp3",final:"audio/08_final.mp3"};
+let current=null,busy=false;
+Object.values(clips).slice(0,2).forEach(src=>{const a=new Audio();a.preload="auto";a.src=src});
 function st(t){$("status").textContent=t}
-async function intro(){
- $("start").classList.add("hidden"); $("again").classList.add("hidden"); $("iam").classList.add("hidden"); $("meow").classList.add("hidden");
- $("cat").textContent="🐱"; st("جاري الاتصال بمملكة القطط...");
- try{await play(clips.intro); await play(clips.name); st("هل أنتِ لورين؟"); $("iam").classList.remove("hidden")}
- catch(e){st("الصوت غير موجود بعد. شغّل generate_audio.py أولًا."); $("start").classList.remove("hidden")}
-}
-$("start").onclick=intro;
-$("iam").onclick=async()=>{
- $("iam").classList.add("hidden"); $("cat").textContent="😼"; st("تم التأكد من الهوية");
- await play(clips.confirm); await play(clips.dad); await play(clips.secret); await play(clips.cats);
- st("اختبار مملكة القطط"); $("meow").classList.remove("hidden")
-};
-$("meow").onclick=async()=>{
- $("meow").classList.add("hidden"); $("cat").textContent="😹"; st("جاري تحليل المياو...");
- await play(clips.result); await play(clips.final);
- $("cat").textContent="😻"; st("المهمة اكتملت بنجاح"); $("again").classList.remove("hidden")
-};
-$("again").onclick=intro;
+function pulse(){const p=$("portal");p.classList.remove("active");void p.offsetWidth;p.classList.add("active")}
+function show(id){$(id).classList.remove("hidden")}
+function hide(id){$(id).classList.add("hidden")}
+function setBusy(v){busy=v;document.querySelectorAll("button").forEach(b=>b.disabled=v)}
+function stopAudio(){if(current){current.pause();current.currentTime=0;current=null}}
+function play(src){return new Promise((resolve,reject)=>{stopAudio();const a=new Audio(src);current=a;a.preload="auto";a.onended=()=>{current=null;resolve()};a.onerror=()=>{current=null;reject(new Error("audio"))};a.play().catch(reject)})}
+async function seq(...items){for(const item of items)await play(item)}
+async function startMission(){if(busy)return;hide("start");hide("again");hide("iam");hide("meow");pulse();st("جاري فتح البوابة...");setBusy(true);try{await seq(clips.intro,clips.name);st("هل أنتِ لورين؟");show("iam")}catch{st("تعذر تشغيل الصوت. تأكدي من الاتصال ثم حاولي مرة ثانية.");show("start")}finally{setBusy(false)}}
+$("start").addEventListener("click",startMission);
+$("iam").addEventListener("click",async()=>{if(busy)return;hide("iam");pulse();st("تم التأكد من الهوية... عندي شيء لك");setBusy(true);try{await seq(clips.confirm,clips.dad,clips.secret,clips.cats);st("اختبار مملكة القطط");show("meow")}catch{st("تعذر إكمال الرسالة. حاولي مرة ثانية.");show("again")}finally{setBusy(false)}});
+$("meow").addEventListener("click",async()=>{if(busy)return;hide("meow");pulse();st("جاري تحليل المياو...");setBusy(true);try{await seq(clips.result,clips.final);$("title").textContent="تم اعتماد لورين رسميًا عضوة شرف في مملكة القطط";$("lead").textContent="المهمة اكتملت. والملف السري يقول إن نسبة الشقاوة ما زالت مرتفعة.";st("تم إغلاق الملف السري بنجاح");show("again")}catch{st("تعذر تشغيل نهاية الرسالة. حاولي مرة ثانية.");show("again")}finally{setBusy(false)}});
+$("again").addEventListener("click",()=>{stopAudio();setBusy(false);$("title").textContent="لورين... عندك رسالة سرية من مملكة القطط";$("lead").textContent="ارفعي الصوت شوي. البوابة ما تفتح إلا للشخص الصح.";show("start");hide("again");hide("iam");hide("meow");st("جاهزة تفتحين البوابة؟")});
 </script>
 </body>
 </html>
